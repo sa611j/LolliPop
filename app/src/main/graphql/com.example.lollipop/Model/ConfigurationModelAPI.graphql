@@ -1,0 +1,26 @@
+query ConfigurationModelGet(
+  $client: Client!
+  $model: String!
+  $version: String!
+  $country: String!
+  $language: String!
+) {
+  configuration(
+    input: {
+      client: $client
+      model: $model
+      version: $version
+      country: $country
+      language: $language
+    }
+  ) {
+    config {
+      currentVersion
+      minimumVersion
+      scheduledMaintenance {
+        start
+        end
+      }
+    }
+  }
+}

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="?android:colorBackground"
+
+    android:layout_height="match_parent"
+    tools:context=".PersonFragment">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/title_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_gravity="center"
+                android:text="Just Name"
+                android:textStyle="bold" />
+            <androidx.cardview.widget.CardView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                app:cardCornerRadius="8dp">
+
+                <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:src="@mipmap/ic_launcher"
+                    android:scaleType="centerCrop"
+                    android:adjustViewBounds="true"
+                    android:text="Android ScrollView Example" />
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+
+
+        <TextView
+            android:id="@+id/image_description"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Android ScrollView Example" />
+
+        <TextView
+            android:id="@+id/user_description"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Android ScrollView Example" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="3"
+            android:paddingBottom="15dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Like" />
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Match" />
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Fuck" />
+
+        </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="fill_parent"
+            android:layout_height="300dp"
+            app:cardCornerRadius="8dp"
+            android:layout_marginBottom="60dp">
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:weightSum="9"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:id="@+id/subImage1"
+                    android:layout_width="0dp"
+                    android:layout_weight="6"
+                    android:layout_height="fill_parent"
+                    android:scaleType="centerCrop"
+                    android:adjustViewBounds="true"
+                    android:paddingRight="1dp"
+                    android:src="@mipmap/ic_launcher"
+                    android:text="Like" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="fill_parent"
+                    android:weightSum="2"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:id="@+id/subImage2"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/ic_launcher"
+                        android:paddingBottom="1dp"
+                        android:text="Like" />
+                    <ImageView
+                        android:id="@+id/subImage3"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:scaleType="centerCrop"
+                        android:adjustViewBounds="true"
+                        android:src="@mipmap/ic_launcher"
+                        android:text="Like" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+
+</ScrollView>

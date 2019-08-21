@@ -1,0 +1,47 @@
+query EditProfileViewModelGet {
+  me {
+    user {
+      name
+      bio
+      birthDate
+      gender
+      handle
+      language
+      hidden
+      createdAt
+    }
+  }
+}
+
+mutation EditProfileViewModelUpdate(
+  $name: String
+  $bio: String
+  $birthDate: DateTime
+  $gender: Int
+  $handle: String
+  $language: String
+  $hidden: Boolean
+) {
+  updateMe(
+    input: {
+      name: $name
+      bio: $bio
+      birthDate: $birthDate
+      gender: $gender
+      handle: $handle
+      language: $language
+      hidden: $hidden
+    }
+  ) {
+    user {
+      name
+      bio
+      birthDate
+      gender
+      handle
+      language
+      hidden
+      createdAt
+    }
+  }
+}

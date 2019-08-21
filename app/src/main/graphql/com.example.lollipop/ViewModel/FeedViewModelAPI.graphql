@@ -1,0 +1,18 @@
+query FeedViewModelGet {
+  core(input: { count: 50 }) {
+    users {
+      id
+      type
+      name
+      bio
+      age
+      handle
+      media(videoCount: 1, photoCount: 1) {
+        id
+        type
+        photoUrl(size: MEDIUM)
+        videoUrl(size: MEDIUM)
+      }
+    }
+  }
+}
