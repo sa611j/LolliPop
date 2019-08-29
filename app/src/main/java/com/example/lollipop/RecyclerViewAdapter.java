@@ -97,7 +97,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     FragmentManager fm = ((AppCompatActivity)mContext).getSupportFragmentManager();
                     PersonFragment personFragment = new PersonFragment();
                     personFragment.setArguments(bundle);
-                    fm.beginTransaction().add(R.id.fragment_container, personFragment, "3").commit();
+                    fm.beginTransaction().add(R.id.fragment_container, personFragment, "3").addToBackStack(null).commit();
                     mAdapterCallback.onMethodCallback(personFragment);
 
                 }

@@ -7,14 +7,12 @@ import androidx.fragment.app.FragmentManager;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends AppCompatActivity implements RecyclerViewAdapter.AdapterCallback, PersonFragment.OnFragmentInteractionListener, PeopleFragment.OnFragmentInteractionListener, UserFragment.OnFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity implements CarouselFragment.OnFragmentInteractionListener,RecyclerViewAdapter.AdapterCallback, PersonFragment.OnFragmentInteractionListener, PeopleFragment.OnFragmentInteractionListener, UserFragment.OnFragmentInteractionListener{
     private static final String TAG = "MainActivity";
     private final Fragment fragment1 = new PeopleFragment();
     private final Fragment fragment2 = new UserFragment();
@@ -34,9 +32,10 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
+        navView.setSelectedItemId(R.id.fragment_container);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         fm.beginTransaction().add(R.id.fragment_container, fragment1, "1").addToBackStack(null).commit();
-        fm.beginTransaction().add(R.id.fragment_container, fragment2, "2").detach(fragment2).commit();
+        fm.beginTransaction().add(R.id.fragment_container, fragment2, "2").hide(fragment2).commit();
     }
 
     @Override
@@ -56,9 +55,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                     active = fragment1;
                     return true;
                 case R.id.navigation_user:
-                    fm.beginTransaction().detach(active).attach(fragment2).commit();
+                    fm.beginTransaction().hide(active).show(fragment2).commit();
                     oldCount = Integer.valueOf(active.getTag());
                     active = fragment2;
+//                    Fragment.SavedState z = fm.saveFragmentInstanceState(fragment1);
+//                    fragment1.setInitialSavedState(z);
                     return true;
             }
 
@@ -68,6 +69,15 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
         @Override
     public void onBackPressed() {
+
+//            int count = getSupportFragmentManager().getBackStackEntryCount();
+//
+//            if (count == 0) {
+//                super.onBackPressed();
+//                //additional code
+//            } else {
+//                getSupportFragmentManager().popBackStack();
+//            }
 //
         int count = Integer.valueOf(active.getTag());
         Log.d(TAG, "onBackPressed: " + count);
@@ -85,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     @Override
     public void onMethodCallback(Fragment yourValue) {
         Log.d(TAG, "onMethodCallback: I got the active");
-        active = yourValue;
-        oldCount = 1;
+//        active = yourValue;
+//        oldCount = 1;
     }
 }

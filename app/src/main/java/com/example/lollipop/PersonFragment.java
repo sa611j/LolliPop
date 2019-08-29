@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.os.Handler;
 import android.util.Log;
@@ -24,7 +25,6 @@ import com.example.lollipop.ViewModel.UserProfileViewModelGetQuery;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 
 /**
@@ -83,6 +83,7 @@ public class PersonFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
@@ -128,6 +129,7 @@ public class PersonFragment extends Fragment {
                     public void run() {
                         setOtherImages(mURLs);
                     }
+
                 });
             }
 
@@ -178,6 +180,17 @@ public class PersonFragment extends Fragment {
                 .asBitmap()
                 .load(imageURL.replace("small", "large"))
                 .into(imageView);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fm = getFragmentManager();
+                Bundle bundle = new Bundle();
+                bundle.putStringArrayList("user_URLs", mURLs);
+                CarouselFragment carouselFragment = new CarouselFragment();
+                carouselFragment.setArguments(bundle);
+                fm.beginTransaction().add(R.id.fragment_container, carouselFragment).addToBackStack(null).commit();
+            }
+        });
     }
 
     // TODO: Rename method, update argument and hook method into UI event
