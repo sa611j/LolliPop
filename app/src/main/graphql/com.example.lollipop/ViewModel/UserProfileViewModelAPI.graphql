@@ -1,0 +1,25 @@
+query userProfileViewModelGetQuery(
+  $userId: String!
+  $videoCount: Int
+  $photoCount: Int
+) {
+  user(input: { userId: $userId }) {
+    user {
+      id
+      type
+      name
+      bio
+      age
+      handle
+      media(videoCount: $videoCount, photoCount: $photoCount) {
+        type
+        photoUrl(size: MEDIUM)
+        videoUrl(size: MEDIUM)
+      }
+      isMatch
+      isSuperMatch
+      isLiked
+      isSuperLiked
+    }
+  }
+}
