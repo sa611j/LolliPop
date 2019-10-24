@@ -8,7 +8,6 @@ query FeedViewModelGet {
       age
       handle
       media(videoCount: 1, photoCount: 1) {
-        id
         type
         photoUrl(size: MEDIUM)
         videoUrl(size: MEDIUM)

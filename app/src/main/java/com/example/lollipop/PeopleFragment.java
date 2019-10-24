@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Handler;
 import android.util.Log;
@@ -34,7 +35,8 @@ import java.util.List;
  * Use the {@link PeopleFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PeopleFragment extends Fragment {
+public class PeopleFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener
+ {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -51,6 +53,8 @@ public class PeopleFragment extends Fragment {
     Handler myHandler;
 
     private OnFragmentInteractionListener mListener;
+
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     public PeopleFragment() {
         // Required empty public constructor
@@ -89,13 +93,21 @@ public class PeopleFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_people, container, false);
         myApolloClient = (MyApolloClient) getActivity().getApplication();
         myHandler = new Handler();
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh);
+        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.setColorScheme(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
         getPosts();
-        return inflater.inflate(R.layout.fragment_people, container, false);
+        return view;
     }
 
-    private void getPosts() {
+
+     private void getPosts() {
         Log.d(TAG, "getPosts: Post");
         myApolloClient.apolloClient().query(
                 FeedViewModelGetQuery.builder().build()).enqueue(new ApolloCall.Callback<FeedViewModelGetQuery.Data>() {
@@ -103,10 +115,12 @@ public class PeopleFragment extends Fragment {
             public void onResponse(@NotNull Response<FeedViewModelGetQuery.Data> response) {
                 Log.d(TAG, "onResponse: Got the query");
                 mUsers = response.data().core().users();
+
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         initRecyclerView();
+
                     }
                 });
 
@@ -159,7 +173,18 @@ public class PeopleFragment extends Fragment {
         mListener = null;
     }
 
-    /**
+     @Override
+     public void onRefresh() {
+         Log.i(TAG, "onRefresh: I could refresh");
+         new Handler().postDelayed(new Runnable() {
+             @Override public void run() {
+                 getPosts();
+                 swipeRefreshLayout.setRefreshing(false);
+             }
+         }, 500);
+     }
+
+     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that

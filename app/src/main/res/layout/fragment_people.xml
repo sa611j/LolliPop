@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="?android:colorBackground"
+    android:id="@+id/swipe_refresh"
     tools:context=".PeopleFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -13,4 +14,4 @@
         android:layout_height="wrap_content"
         android:id="@+id/recycle_view">
     </androidx.recyclerview.widget.RecyclerView>
-</RelativeLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

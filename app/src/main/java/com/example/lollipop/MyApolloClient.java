@@ -13,12 +13,11 @@ import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 
 public class MyApolloClient extends Application {
-    private static final String BASE_URL = "https://api-alpha.lpp.pw/v1/graphql";
+    private static final String BASE_URL = "https://api.lpp.pw/v1/graphql";
     private ApolloClient apolloClient;
 
     //TODO: put your token here man!!!
-    private String TOKEN = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJsb2xsaXBvcDEyMzQiLCJpYXQiOjE1NjYxMzQ2MzUsImV4cCI6MTU2NzM0NDIzNX0.cYLiF3wXVn-dHUXKlk1ovtsBy5uw7TiIbxxlcIl--1E";
-
+    private String TOKEN = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJsb2xsaXBvcDEyMTIiLCJpYXQiOjE1NzEwNTI4MDgsImV4cCI6MTU3MjI2MjQwOH0.AUDPLJ6u4MPhkemezHD8NrII4JmHuUEYMsfg8n2Hnrg";
     @Override
     public void onCreate() {
         super.onCreate();

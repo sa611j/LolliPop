@@ -1,6 +1,7 @@
 package com.example.lollipop;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -54,8 +55,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 mImages.add(mUsers.get(i).media().get(0).photoUrl());
                 Log.d(TAG, "RecyclerViewAdapter: "+ mUsers.get(i).media().get(0).photoUrl());
             }
-            else
+            else {
                 mImages.add("puto");
+                Log.d(TAG, "RecyclerViewAdapter: mrd");
+            }
         }
 
     }
@@ -75,30 +78,41 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         Log.d(TAG, "onBindViewHolder: Got it");
         for (int i=0; i<4; i++){
             final int position = position0*4+i;
-            if (!mImageNames.get(position).equals("puto"))
+            if (!mImages.get(position).equals("puto"))
                 Glide.with(mContext)
                         .asBitmap()
                         .load(mImages.get(position))
                         .into(holder.imageViews.get(i));
-            else
-                holder.imageViews.get(i).setImageResource(R.mipmap.ic_launcher);
+//            else {
+//                Log.d(TAG, "onBindViewHolder: Change for defaul image");
+//                holder.imageViews.get(i).setImageResource(R.mipmap.ic_launcher_round);
+//            }
             holder.textViews.get(i).setText(mImageNames.get(position));
             holder.imageViews.get(i).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Log.d(TAG, "onClick: Got Clicked");
-                    Bundle bundle = new Bundle();
-                    bundle.putString("image_url", mImages.get(position));
-                    bundle.putString("image_name", mImageNames.get(position));
-                    bundle.putString("image_bio", mBio.get(position));
-                    bundle.putString("image_age", mAge.get(position));
-                    bundle.putString("image_id", mID.get(position));
-                    Log.d(TAG, "onClick: " + bundle.get("image_id"));
-                    FragmentManager fm = ((AppCompatActivity)mContext).getSupportFragmentManager();
-                    PersonFragment personFragment = new PersonFragment();
-                    personFragment.setArguments(bundle);
-                    fm.beginTransaction().add(R.id.fragment_container, personFragment, "3").addToBackStack(null).commit();
-                    mAdapterCallback.onMethodCallback(personFragment);
+                    Context context = view.getContext();
+                    Intent intent = new Intent(context, PersonActivity.class);
+                    intent.putExtra("image_url", mImages.get(position));
+                    intent.putExtra("image_name", mImageNames.get(position));
+                    intent.putExtra("image_bio", mBio.get(position));
+                    intent.putExtra("image_age", mAge.get(position));
+                    intent.putExtra("image_id", mID.get(position));
+                    context.startActivity(intent);
+
+//                    Bundle bundle = new Bundle();
+//                    bundle.putString("image_url", mImages.get(position));
+//                    bundle.putString("image_name", mImageNames.get(position));
+//                    bundle.putString("image_bio", mBio.get(position));
+//                    bundle.putString("image_age", mAge.get(position));
+//                    bundle.putString("image_id", mID.get(position));
+//                    Log.d(TAG, "onClick: " + bundle.get("image_id"));
+//                    FragmentManager fm = ((AppCompatActivity)mContext).getSupportFragmentManager();
+//                    PersonFragment personFragment = new PersonFragment();
+//                    personFragment.setArguments(bundle);
+//                    fm.beginTransaction().add(R.id.fragment_container, personFragment, "3").addToBackStack(null).commit();
+//                    mAdapterCallback.onMethodCallback(personFragment);
 
                 }
             });

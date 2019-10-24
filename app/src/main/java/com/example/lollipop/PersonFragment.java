@@ -3,10 +3,6 @@ package com.example.lollipop;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,11 +12,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
 import com.apollographql.apollo.ApolloCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
 import com.bumptech.glide.Glide;
-import com.example.lollipop.ViewModel.UserProfileViewModelGetQuery;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -116,35 +114,36 @@ public class PersonFragment extends Fragment {
 
     private void getPosts(final String imageID) {
         Log.d(TAG, "getPosts: Second Query");
-        myApolloClient.apolloClient().query(
-                UserProfileViewModelGetQuery.builder().userId(imageID).build()).enqueue(new ApolloCall.Callback<UserProfileViewModelGetQuery.Data>() {
-            @Override
-            public void onResponse(@NotNull Response<UserProfileViewModelGetQuery.Data> response) {
-                Log.d(TAG, "onResponse: Successful Query");
-                UserProfileViewModelGetQuery.User1 user = response.data().user().user();
-                for (int i = 0; i<user.media().size(); i++)
-                    mURLs.add(user.media().get(i).photoUrl());
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        setOtherImages(mURLs);
-                    }
+//        myApolloClient.apolloClient().query(
+//                UserProfileViewModelGetQuery.builder().userId(imageID).build()).enqueue(new ApolloCall.Callback<UserProfileViewModelGetQuery.Data>() {
+//            @Override
+//            public void onResponse(@NotNull Response<UserProfileViewModelGetQuery.Data> response) {
+//                Log.d(TAG, "onResponse: Successful Query");
+//                UserProfileViewModelGetQuery.User1 user = response.data().user().user();
+//                for (int i = 0; i<user.media().size(); i++)
+//                    mURLs.add(user.media().get(i).photoUrl());
+//                getActivity().runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        setOtherImages(mURLs);
+//                    }
+//
+//                });
+//            }
+//
+//            @Override
+//            public void onFailure(@NotNull ApolloException e) {
+//                Log.e(TAG, e.getMessage(), e);
+//                handler.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        Log.d(TAG, "run: Ya estoy esperando 1 sec");
+//                        getPosts(imageID);
+//                    }
+//                }, 1000);
+//            }
+//        });
 
-                });
-            }
-
-            @Override
-            public void onFailure(@NotNull ApolloException e) {
-                Log.e(TAG, e.getMessage(), e);
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Log.d(TAG, "run: Ya estoy esperando 1 sec");
-                        getPosts(imageID);
-                    }
-                }, 1000);
-            }
-        });
     }
     private void setOtherImages(ArrayList<String> imagesURLs){
         Log.d(TAG, "setOtherImages: New Query");
